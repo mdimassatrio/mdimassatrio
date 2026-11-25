@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mukhamat Dimas Satrio — Visual Communication Designer & Creative Director</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Syne (Display Editorial) & Plus Jakarta Sans (Body Clean) & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['Syne', 'sans-serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        studio: {
+                            black: '#0A0A0B',
+                            surface: '#141416',
+                            card: '#1C1C20',
+                            paper: '#F5F4F0',
+                            paperCard: '#EAE8E1',
+                            acid: '#CCFF00',     // Aksen Neon Lime khas Studio DKV
+                            vermilion: '#FF4500', // Aksen Oranye Kemerahan Editorial
+                            cobalt: '#2563EB'
+                        }
+                    },
+                    animation: {
+                        'marquee': 'marquee 28s linear infinite',
+                        'spin-slow': 'spin 16s linear infinite',
+                    },
+                    keyframes: {
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-50%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Scrollbar & Editorial Refinements */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0A0A0B;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #CCFF00;
+        }
+        .editorial-grid-bg {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(128, 128, 128, 0.08) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(128, 128, 128, 0.08) 1px, transparent 1px);
+        }
+        .project-card-img {
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .group:hover .project-card-img {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="bg-studio-paper text-studio-black dark:bg-studio-black dark:text-studio-paper font-sans antialiased transition-colors duration-300 selection:bg-studio-acid selection:text-studio-black overflow-x-hidden">
+
+    <!-- ==================== HEADER / NAVBAR ==================== -->
+    <header class="fixed top-0 left-0 right-0 z-40 border-b border-black/10 dark:border-white/10 bg-studio-paper/85 dark:bg-studio-black/85 backdrop-blur-md transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Monogram -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-studio-black dark:bg-studio-acid text-studio-paper dark:text-studio-black flex items-center justify-center font-display font-extrabold text-lg tracking-tighter group-hover:rotate-6 transition-transform">
+                    DS.
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-display font-bold text-xs sm:text-sm tracking-tight uppercase">Mukhamat Dimas Satrio</span>
+                    <span class="font-mono text-[10px] uppercase tracking-widest opacity-60">Visual Archive ©26</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+                <a href="#karya" class="hover:text-studio-vermilion dark:hover:text-studio-acid transition-colors">Karya Pilihan</a>
+                <a href="#tentang" class="hover:text-studio-vermilion dark:hover:text-studio-acid transition-colors">Tentang & Keahlian</a>
+                <a href="#pengalaman" class="hover:text-studio-vermilion dark:hover:text-studio-acid transition-colors">Pengalaman</a>
+                <a href="#kontak" class="hover:text-studio-vermilion dark:hover:text-studio-acid transition-colors">Kontak</a>
+            </nav>
+
+            <!-- Actions: Theme Toggle & Mobile Menu -->
+            <div class="flex items-center gap-3">
+                <button id="themeToggle" aria-label="Ubah Tema Tampilan" class="p-3 rounded-full border border-black/15 dark:border-white/15 hover:bg-black/5 dark:hover:bg-white/10 transition-all">
+                    <i data-lucide="sun" class="w-4 h-4 hidden dark:block text-studio-acid"></i>
+                    <i data-lucide="moon" class="w-4 h-4 block dark:hidden text-studio-black"></i>
+                </button>
+                <a href="#kontak" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-studio-black dark:bg-studio-acid text-studio-paper dark:text-studio-black font-semibold text-xs uppercase tracking-wider hover:opacity-90 transition-opacity">
+                    <span>Kolaborasi</span>
+                    <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                </a>
+                <button id="mobileMenuBtn" aria-label="Buka Menu" class="md:hidden p-3 rounded-xl border border-black/15 dark:border-white/15">
+                    <i data-lucide="menu" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobileMenu" class="hidden md:hidden border-t border-black/10 dark:border-white/10 bg-studio-paper dark:bg-studio-surface px-6 py-6 space-y-4">
+            <a href="#karya" class="mobile-link block font-display text-xl font-bold">01. Karya Pilihan</a>
+            <a href="#tentang" class="mobile-link block font-display text-xl font-bold">02. Tentang & Keahlian</a>
+            <a href="#pengalaman" class="mobile-link block font-display text-xl font-bold">03. Pengalaman</a>
+            <a href="#kontak" class="mobile-link block font-display text-xl font-bold text-studio-vermilion dark:text-studio-acid">04. Hubungi Saya</a>
+        </div>
+    </header>
+
+    <!-- ==================== 1. HERO SECTION ==================== -->
+    <section class="relative pt-32 pb-16 sm:pt-40 sm:pb-24 editorial-grid-bg border-b border-black/10 dark:border-white/10 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Top Editorial Meta Bar -->
+            <div class="flex flex-wrap items-center justify-between gap-4 mb-8 pb-4 border-b border-black/10 dark:border-white/10">
+                <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span class="font-mono text-xs uppercase tracking-wider">Tersedia untuk Proyek Freelance & Magang Kreatif</span>
+                </div>
+                <div class="font-mono text-xs uppercase tracking-widest opacity-70">
+                    SURABAYA / INDONESIA — PORTOFOLIO DKV
+                </div>
+            </div>
+
+            <!-- Main Display Headline -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end">
+                <div class="lg:col-span-8">
+                    <p class="font-mono text-sm sm:text-base uppercase tracking-widest text-studio-vermilion dark:text-studio-acid font-medium mb-3">
+                        Visual Communication Designer / DKV
+                    </p>
+                    <h1 class="font-display font-extrabold text-5xl sm:text-6xl lg:text-[5.4rem] leading-[0.94] tracking-tight uppercase">
+                        MUKHAMAT <br>
+                        DIMAS <br>
+                        <span class="inline-flex items-center gap-3">
+                            SATRIO
+                            <span class="hidden sm:inline-block px-4 py-1 text-base sm:text-xl font-mono font-normal rounded-full border-2 border-current align-middle tracking-normal">
+                                2023—2026
+                            </span>
+                        </span>
+                    </h1>
+                </div>
+
+                <!-- Creative Statement & CTA -->
+                <div class="lg:col-span-4 space-y-6">
+                    <p class="text-base sm:text-lg leading-relaxed opacity-85">
+                        Menerjemahkan gagasan kompleks menjadi sistem identitas visual yang berkarakter, narasi tipografi eksperimental, dan pengalaman digital yang menggugah rasa.
+                    </p>
+                    <div class="flex flex-wrap items-center gap-3 pt-2">
+                        <a href="#karya" class="inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-2xl bg-studio-black dark:bg-studio-acid text-studio-paper dark:text-studio-black font-bold text-sm tracking-wide hover:-translate-y-0.5 transition-all shadow-lg">
+                            <span>Jelajahi Karya</span>
+                            <i data-lucide="arrow-down-right" class="w-4 h-4"></i>
+                        </a>
+                        <a href="#kontak" class="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-2xl border-2 border-studio-black dark:border-white/25 font-bold text-sm tracking-wide hover:bg-studio-black hover:text-studio-paper dark:hover:bg-white dark:hover:text-studio-black transition-all">
+                            <span>Hubungi Saya</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Editorial Highlight Strip / Visual Spec -->
+            <div class="mt-14 grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="p-5 rounded-2xl bg-studio-paperCard dark:bg-studio-surface border border-black/10 dark:border-white/10">
+                    <span class="font-mono text-xs opacity-60 block mb-1">FOKUS UTAMA</span>
+                    <span class="font-display font-bold text-lg">Ilustrasi & Eksplorasi Visual</span>
+                </div>
+                <div class="p-5 rounded-2xl bg-studio-paperCard dark:bg-studio-surface border border-black/10 dark:border-white/10">
+                    <span class="font-mono text-xs opacity-60 block mb-1">PROYEK TERKURASI</span>
+                    <span class="font-display font-bold text-lg">06 Karya Pilihan</span>
+                </div>
+                <div class="p-5 rounded-2xl bg-studio-paperCard dark:bg-studio-surface border border-black/10 dark:border-white/10">
+                    <span class="font-mono text-xs opacity-60 block mb-1">ALAT UTAMA</span>
+                    <span class="font-display font-bold text-lg">Adobe CC & Blender 3D</span>
+                </div>
+                <div class="p-5 rounded-2xl bg-studio-vermilion dark:bg-studio-acid text-white dark:text-studio-black">
+                    <span class="font-mono text-xs opacity-80 block mb-1">PENDEKATAN</span>
+                    <span class="font-display font-bold text-lg">Riset + Eksplorasi Visual</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kinetic Typography Marquee -->
+        <div class="mt-14 py-4 border-y border-black/15 dark:border-white/15 bg-studio-black text-studio-paper dark:bg-studio-surface overflow-hidden select-none">
+            <div class="flex whitespace-nowrap animate-marquee font-display font-bold text-sm sm:text-base tracking-widest uppercase">
+                <span class="mx-6">NIRMANA & DASAR DESAIN</span> <span class="text-studio-acid">✦</span>
+                <span class="mx-6">ILUSTRASI MANUAL</span> <span class="text-studio-vermilion">✦</span>
+                <span class="mx-6">DIGITAL PAINTING</span> <span class="text-studio-acid">✦</span>
+                <span class="mx-6">3D MODELING</span> <span class="text-studio-vermilion">✦</span>
+                <span class="mx-6">POSTER & EDITORIAL</span> <span class="text-studio-acid">✦</span>
+                <span class="mx-6">DESAIN KARAKTER</span> <span class="text-studio-vermilion">✦</span>
+                <!-- Duplicate for seamless loop -->
+                <span class="mx-6">NIRMANA & DASAR DESAIN</span> <span class="text-studio-acid">✦</span>
+                <span class="mx-6">ILUSTRASI MANUAL</span> <span class="text-studio-vermilion">✦</span>
+                <span class="mx-6">DIGITAL PAINTING</span> <span class="text-studio-acid">✦</span>
+                <span class="mx-6">3D MODELING</span> <span class="text-studio-vermilion">✦</span>
+                <span class="mx-6">POSTER & EDITORIAL</span> <span class="text-studio-acid">✦</span>
+                <span class="mx-6">DESAIN KARAKTER</span> <span class="text-studio-vermilion">✦</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 2. SELECTED WORKS / GALERI KARYA ==================== -->
+    <section id="karya" class="py-20 sm:py-28 border-b border-black/10 dark:border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header & Interactive Filters -->
+            <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-12">
+                <div>
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="font-mono text-xs px-2.5 py-1 rounded-md bg-studio-vermilion text-white dark:bg-studio-acid dark:text-studio-black font-bold">01</span>
+                        <span class="font-mono text-xs uppercase tracking-widest opacity-70">Arsip Terkurasi</span>
+                    </div>
+                    <h2 class="font-display font-extrabold text-4xl sm:text-6xl tracking-tight uppercase">
+                        Selected Works
+                    </h2>
+                </div>
+
+                <!-- Category Filter Pills -->
+                <div id="filterContainer" class="flex flex-wrap gap-2" role="tablist" aria-label="Filter Kategori Karya">
+                    <button data-filter="all" class="filter-btn active px-4 py-2.5 rounded-full text-xs sm:text-sm font-semibold border border-studio-black dark:border-studio-acid bg-studio-black text-studio-paper dark:bg-studio-acid dark:text-studio-black transition-all">
+                        Semua (06)
+                    </button>
+                    <button data-filter="nirmana" class="filter-btn px-4 py-2.5 rounded-full text-xs sm:text-sm font-semibold border border-black/15 dark:border-white/15 hover:border-black dark:hover:border-white transition-all">
+                        Nirmana & Dasar
+                    </button>
+                    <button data-filter="ilustrasi" class="filter-btn px-4 py-2.5 rounded-full text-xs sm:text-sm font-semibold border border-black/15 dark:border-white/15 hover:border-black dark:hover:border-white transition-all">
+                        Ilustrasi
+                    </button>
+                    <button data-filter="poster" class="filter-btn px-4 py-2.5 rounded-full text-xs sm:text-sm font-semibold border border-black/15 dark:border-white/15 hover:border-black dark:hover:border-white transition-all">
+                        Poster & Editorial
+                    </button>
+                    <button data-filter="3d" class="filter-btn px-4 py-2.5 rounded-full text-xs sm:text-sm font-semibold border border-black/15 dark:border-white/15 hover:border-black dark:hover:border-white transition-all">
+                        3D & Digital
+                    </button>
+                </div>
+            </div>
+
+            <!-- Projects Grid -->
+            <div id="projectsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project cards will be dynamically rendered via JavaScript for clean state & modal binding -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 3. TENTANG SAYA & KEAHLIAN ==================== -->
+    <section id="tentang" class="py-20 sm:py-28 border-b border-black/10 dark:border-white/10 bg-studio-paperCard/50 dark:bg-studio-surface/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                <!-- Left Column: Editorial Portrait & Education Card -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="flex items-center gap-3">
+                        <span class="font-mono text-xs px-2.5 py-1 rounded-md bg-studio-vermilion text-white dark:bg-studio-acid dark:text-studio-black font-bold">02</span>
+                        <span class="font-mono text-xs uppercase tracking-widest opacity-70">Profil & Filosofi</span>
+                    </div>
+
+                    <!-- Stylized Studio Portrait Container -->
+                    <div class="relative rounded-3xl overflow-hidden border border-black/15 dark:border-white/15 bg-studio-black aspect-[4/5] group">
+                        <img 
+                            src="dimas.jpeg" 
+                            onerror="this.onerror=null;this.src='https://placehold.co/800x1000/141416/CCFF00?text=M.DIMAS+SATRIO+DKV';"
+                            alt="Potret Editorial Mukhamat Dimas Satrio" 
+                            class="w-full h-full object-cover grayscale contrast-125 group-hover:grayscale-0 transition-all duration-700"
+                        >
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
+                        <div class="absolute bottom-6 left-6 right-6 text-white">
+                            <span class="inline-block px-3 py-1 rounded-full bg-studio-acid text-studio-black font-mono text-xs font-bold mb-2">
+                                DKV — SMK Negeri 10 Surabaya
+                            </span>
+                            <h3 class="font-display font-bold text-2xl">Mukhamat Dimas Satrio</h3>
+                            <p class="text-sm text-white/80">Desain Komunikasi Visual / Surabaya</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Philosophy, Principles & Software Arsenal -->
+                <div class="lg:col-span-7 space-y-10 lg:pt-8">
+                    <div>
+                        <h2 class="font-display font-extrabold text-3xl sm:text-5xl leading-tight mb-6">
+                            Desain bukan sekadar estetika permukaan—ia adalah <span class="underline decoration-studio-vermilion dark:decoration-studio-acid decoration-4 underline-offset-4">strategi komunikasi</span> yang memanusiakan pesan.
+                        </h2>
+                        <div class="space-y-4 text-base sm:text-lg opacity-85 leading-relaxed">
+                            <p>
+                                Halo! Saya <strong>Mukhamat Dimas Satrio</strong>, siswa jurusan Desain Komunikasi Visual di SMK Negeri 10 Surabaya &amp; desainer visual yang berfokus pada perpaduan antara ketajaman grid editorial Swiss, kekayaan narasi visual lokal Nusantara, serta fungsionalitas antarmuka digital modern.
+                            </p>
+                            <p>
+                                Dalam setiap proyek, saya memulai proses dari riset budaya dan perilaku audiens sebelum menyentuh kanvas digital—memastikan setiap garis, pemilihan jenis huruf, dan palet warna memiliki alasan konseptual yang kuat.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 3 Pillars of Design Process -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                        <div class="p-5 rounded-2xl bg-studio-paper dark:bg-studio-card border border-black/10 dark:border-white/10">
+                            <span class="font-mono text-xs text-studio-vermilion dark:text-studio-acid font-bold">01 / RISET</span>
+                            <h4 class="font-display font-bold text-lg mt-1 mb-2">Bedah Konteks</h4>
+                            <p class="text-xs sm:text-sm opacity-75">Memahami akar masalah, nilai merek, dan psikologi target audiens.</p>
+                        </div>
+                        <div class="p-5 rounded-2xl bg-studio-paper dark:bg-studio-card border border-black/10 dark:border-white/10">
+                            <span class="font-mono text-xs text-studio-vermilion dark:text-studio-acid font-bold">02 / EKSPLORASI</span>
+                            <h4 class="font-display font-bold text-lg mt-1 mb-2">Sistem Visual</h4>
+                            <p class="text-xs sm:text-sm opacity-75">Membangun bahasa bentuk, tipografi modular, dan tata warna kontras.</p>
+                        </div>
+                        <div class="p-5 rounded-2xl bg-studio-paper dark:bg-studio-card border border-black/10 dark:border-white/10">
+                            <span class="font-mono text-xs text-studio-vermilion dark:text-studio-acid font-bold">03 / EKSEKUSI</span>
+                            <h4 class="font-display font-bold text-lg mt-1 mb-2">Presisi Lintas Media</h4>
+                            <p class="text-xs sm:text-sm opacity-75">Implementasi konsisten dari media cetak taktil hingga layar interaktif.</p>
+                        </div>
+                    </div>
+
+                    <!-- Software & Tools Arsenal -->
+                    <div class="pt-4 border-t border-black/10 dark:border-white/10">
+                        <div class="flex items-center justify-between mb-5">
+                            <h3 class="font-display font-bold text-xl uppercase tracking-tight">Perangkat Lunak & Keahlian Teknis</h3>
+                            <span class="font-mono text-xs opacity-60">CREATIVE STACK</span>
+                        </div>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                            <!-- Illustrator -->
+                            <div class="p-4 rounded-2xl bg-studio-paper dark:bg-studio-card border border-black/10 dark:border-white/10 flex items-center gap-3.5 hover:border-studio-vermilion dark:hover:border-studio-acid transition-colors">
+                                <div class="w-11 h-11 rounded-xl bg-[#330000] text-[#FF9A00] font-display font-extrabold flex items-center justify-center text-base shrink-0">Ai</div>
+                                <div>
+                                    <div class="font-bold text-sm">Adobe Illustrator</div>
+                                    <div class="font-mono text-[11px] opacity-60">Vektor & Identitas</div>
+                                </div>
+                            </div>
+                            <!-- Photoshop -->
+                            <div class="p-4 rounded-2xl bg-studio-paper dark:bg-studio-card border border-black/10 dark:border-white/10 flex items-center gap-3.5 hover:border-studio-vermilion dark:hover:border-studio-acid transition-colors">
+                                <div class="w-11 h-11 rounded-xl bg-[#001E36] text-[#31A8FF] font-display font-extrabold flex items-center justify-center text-base shrink-0">Ps</div>
+                                <div>
+                                    <div class="font-bold text-sm">Adobe Photoshop</div>
+                                    <div class="font-mono text-[11px] opacity-60">Manipulasi & Tekstur</div>
+                                </div>
+                            </div>
+                            <!-- InDesign -->
+                            <div class="p-4 rounded-2xl bg-studio-paper dark:bg-studio-card border border-black/10 dark:border-white/10 flex items-center gap-3.5 hover:border-studio-vermilion dark:hover:border-studio-acid transition-colors">
+                                <div class="w-11 h-11 rounded-xl bg-[#49021F] text-[#FF3366] font-display font-extrabold flex items-center justify-center text-base shrink-0">Id</div>
+                                <div>
+                                    <div class="font-bold text-sm">Adobe InDesign</div>
+                                    <div class="font-mono text-[11px] opacity-60">Editorial & Layout</div>
+                                </div>
+                            </div>
+                            <!-- Figma -->
+                            <div class="p-4 rounded-2xl bg-studio-paper dark:bg-studio-card border border-black/10 dark:border-white/10 flex items-center gap-3.5 hover:border-studio-vermilion dark:hover:border-studio-acid transition-colors">
+                                <div class="w-11 h-11 rounded-xl bg-[#1E1E1E] text-[#A259FF] font-display font-extrabold flex items-center justify-center text-base shrink-0">Fg</div>
+                                <div>
+                                    <div class="font-bold text-sm">Figma</div>
+                                    <div class="font-mono text-[11px] opacity-60">UI/UX & Prototipe</div>
+                                </div>
+                            </div>
+                            <!-- After Effects -->
+                            <div class="p-4 rounded-2xl bg-studio-paper dark:bg-studio-card border border-black/10 dark:border-white/10 flex items-center gap-3.5 hover:border-studio-vermilion dark:hover:border-studio-acid transition-colors">
+                                <div class="w-11 h-11 rounded-xl bg-[#00005B] text-[#9999FF] font-display font-extrabold flex items-center justify-center text-base shrink-0">Ae</div>
+                                <div>
+                                    <div class="font-bold text-sm">After Effects</div>
+                                    <div class="font-mono text-[11px] opacity-60">Motion Graphics</div>
+                                </div>
+                            </div>
+                            <!-- Blender -->
+                            <div class="p-4 rounded-2xl bg-studio-paper dark:bg-studio-card border border-black/10 dark:border-white/10 flex items-center gap-3.5 hover:border-studio-vermilion dark:hover:border-studio-acid transition-colors">
+                                <div class="w-11 h-11 rounded-xl bg-[#261400] text-[#EA7600] font-display font-extrabold flex items-center justify-center text-base shrink-0">Bl</div>
+                                <div>
+                                    <div class="font-bold text-sm">Blender 3D</div>
+                                    <div class="font-mono text-[11px] opacity-60">3D Mockup & Asset</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 3. PENGALAMAN DESAIN & STUDIO ==================== -->
+    <section id="pengalaman" class="py-20 sm:py-28 border-b border-black/10 dark:border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-14">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="font-mono text-xs px-2.5 py-1 rounded-md bg-studio-vermilion text-white dark:bg-studio-acid dark:text-studio-black font-bold">03</span>
+                    <span class="font-mono text-xs uppercase tracking-widest opacity-70">Rekam Jejak Kreatif</span>
+                </div>
+                <h2 class="font-display font-extrabold text-4xl sm:text-5xl tracking-tight uppercase">
+                    Pengalaman
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 gap-12 max-w-4xl">
+                <!-- Pengalaman Magang / Internship -->
+                <div class="space-y-6">
+                    <h3 class="font-mono text-sm uppercase tracking-widest opacity-60 pb-3 border-b border-black/10 dark:border-white/10">
+                        Pengalaman Magang (Internship)
+                    </h3>
+
+                    <div class="p-6 rounded-3xl bg-studio-paperCard/60 dark:bg-studio-surface border border-black/10 dark:border-white/10 hover:border-black/30 dark:hover:border-white/30 transition-all">
+                        <div class="flex flex-wrap justify-between items-start gap-2 mb-2">
+                            <span class="font-mono text-xs px-3 py-1 rounded-full bg-studio-black text-studio-paper dark:bg-studio-acid dark:text-studio-black font-semibold">2026</span>
+                            <span class="font-mono text-xs opacity-60">Surabaya, ID</span>
+                        </div>
+                        <h4 class="font-display font-bold text-xl">Desain Grafis — Internship</h4>
+                        <p class="text-sm font-medium text-studio-vermilion dark:text-studio-acid mb-3">Teknik Kimia ITS Surabaya</p>
+                        <p class="text-sm opacity-80 leading-relaxed">
+                            Memproduksi materi visual untuk kebutuhan departemen dan kegiatan institusi: poster, infografis, template presentasi, serta aset publikasi digital yang konsisten dengan identitas lembaga.
+                        </p>
+                    </div>
+
+                    <div class="p-6 rounded-3xl bg-studio-paperCard/60 dark:bg-studio-surface border border-black/10 dark:border-white/10 hover:border-black/30 dark:hover:border-white/30 transition-all">
+                        <div class="flex flex-wrap justify-between items-start gap-2 mb-2">
+                            <span class="font-mono text-xs px-3 py-1 rounded-full border border-black/20 dark:border-white/20">2026</span>
+                            <span class="font-mono text-xs opacity-60">Indonesia</span>
+                        </div>
+                        <h4 class="font-display font-bold text-xl">Animator — Internship</h4>
+                        <p class="text-sm font-medium text-studio-vermilion dark:text-studio-acid mb-3">Firasat Studio</p>
+                        <p class="text-sm opacity-80 leading-relaxed">
+                            Terlibat dalam alur produksi animasi, mulai dari penyusunan storyboard dan pembuatan aset, hingga animasi 2D serta tahap akhir (compositing) sesuai arahan kreatif studio.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 4. KONTAK INTERAKTIF ==================== -->
+    <section id="kontak" class="py-20 sm:py-28 editorial-grid-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="rounded-[2.5rem] bg-studio-black text-studio-paper dark:bg-studio-surface border border-white/10 p-8 sm:p-12 lg:p-16 shadow-2xl">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                    <!-- Left Column: Big CTA, Quick Copy Email & Social Links -->
+                    <div class="lg:col-span-6 flex flex-col justify-between space-y-10">
+                        <div>
+                            <span class="inline-block font-mono text-xs uppercase tracking-widest px-3 py-1 rounded-full bg-studio-acid text-studio-black font-bold mb-5">
+                                04 / Mari Berkolaborasi
+                            </span>
+                            <h2 class="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl leading-[1.02] tracking-tight mb-6">
+                                Punya ide visual yang ingin diwujudkan?
+                            </h2>
+                            <p class="text-white/75 text-base sm:text-lg leading-relaxed">
+                                Terbuka untuk diskusi proyek identitas merek, ilustrasi editorial, desain UI/UX, maupun kesempatan magang dan kolaborasi kreatif lintas disiplin.
+                            </p>
+                        </div>
+
+                        <!-- Quick Email Copy Widget -->
+                        <div class="space-y-3">
+                            <span class="font-mono text-xs uppercase tracking-widest text-white/50 block">Salin Alamat Surel Langsung</span>
+                            <div class="flex flex-wrap items-center justify-between gap-3 p-3 pl-5 rounded-2xl bg-white/5 border border-white/15">
+                                <span id="emailText" class="font-mono text-sm sm:text-base text-studio-acid select-all">halo@dimassatrio.design</span>
+                                <button id="copyEmailBtn" type="button" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-studio-acid text-studio-black font-bold text-xs uppercase tracking-wider hover:opacity-90 active:scale-95 transition-all">
+                                    <i data-lucide="copy" class="w-4 h-4"></i>
+                                    <span id="copyBtnLabel">Salin Email</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Social Media Grid -->
+                        <div>
+                            <span class="font-mono text-xs uppercase tracking-widest text-white/50 block mb-4">Jejaring & Portofolio Eksternal</span>
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                                <a href="https://www.behance.net" target="_blank" rel="noopener noreferrer" class="p-3.5 rounded-2xl bg-white/5 hover:bg-studio-acid hover:text-studio-black border border-white/10 flex items-center justify-between font-semibold text-sm transition-all group">
+                                    <span>Behance</span>
+                                    <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-60 group-hover:opacity-100"></i>
+                                </a>
+                                <a href="https://dribbble.com" target="_blank" rel="noopener noreferrer" class="p-3.5 rounded-2xl bg-white/5 hover:bg-studio-acid hover:text-studio-black border border-white/10 flex items-center justify-between font-semibold text-sm transition-all group">
+                                    <span>Dribbble</span>
+                                    <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-60 group-hover:opacity-100"></i>
+                                </a>
+                                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="p-3.5 rounded-2xl bg-white/5 hover:bg-studio-acid hover:text-studio-black border border-white/10 flex items-center justify-between font-semibold text-sm transition-all group">
+                                    <span>Instagram</span>
+                                    <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-60 group-hover:opacity-100"></i>
+                                </a>
+                                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="p-3.5 rounded-2xl bg-white/5 hover:bg-studio-acid hover:text-studio-black border border-white/10 flex items-center justify-between font-semibold text-sm transition-all group">
+                                    <span>LinkedIn</span>
+                                    <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-60 group-hover:opacity-100"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Interactive Message Form -->
+                    <div class="lg:col-span-6">
+                        <form id="contactForm" class="p-6 sm:p-8 rounded-3xl bg-white/[0.04] border border-white/10 space-y-5">
+                            <h3 class="font-display font-bold text-2xl">Kirim Brief atau Pesan</h3>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="senderName" class="block font-mono text-xs uppercase tracking-wider text-white/70 mb-2">Nama Lengkap *</label>
+                                    <input type="text" id="senderName" required placeholder="Contoh: Raka Pratama" class="w-full px-4 py-3.5 rounded-xl bg-black/40 border border-white/15 text-white placeholder-white/30 focus:outline-none focus:border-studio-acid transition-colors">
+                                </div>
+                                <div>
+                                    <label for="senderEmail" class="block font-mono text-xs uppercase tracking-wider text-white/70 mb-2">Alamat Email *</label>
+                                    <input type="email" id="senderEmail" required placeholder="nama@perusahaan.com" class="w-full px-4 py-3.5 rounded-xl bg-black/40 border border-white/15 text-white placeholder-white/30 focus:outline-none focus:border-studio-acid transition-colors">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="projectType" class="block font-mono text-xs uppercase tracking-wider text-white/70 mb-2">Kebutuhan Proyek</label>
+                                <select id="projectType" class="w-full px-4 py-3.5 rounded-xl bg-black/60 border border-white/15 text-white focus:outline-none focus:border-studio-acid transition-colors">
+                                    <option value="Branding & Identitas Visual">Branding & Identitas Visual</option>
+                                    <option value="Ilustrasi & Key Visual">Ilustrasi & Key Visual</option>
+                                    <option value="Desain UI/UX Web & Aplikasi">Desain UI/UX Web & Aplikasi</option>
+                                    <option value="Editorial, Buku & Poster">Editorial, Buku & Poster</option>
+                                    <option value="Tawaran Magang / Full-time">Tawaran Magang / Kolaborasi Studio</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label for="senderMessage" class="block font-mono text-xs uppercase tracking-wider text-white/70 mb-2">Ceritakan Detail Proyek *</label>
+                                <textarea id="senderMessage" rows="4" required placeholder="Halo Dimas, kami tertarik berdiskusi mengenai..." class="w-full px-4 py-3.5 rounded-xl bg-black/40 border border-white/15 text-white placeholder-white/30 focus:outline-none focus:border-studio-acid transition-colors resize-none"></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full py-4 px-6 rounded-2xl bg-studio-vermilion hover:bg-studio-acid text-white hover:text-studio-black font-display font-bold text-base uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-lg">
+                                <span>Kirim Pesan Sekarang</span>
+                                <i data-lucide="send" class="w-4 h-4"></i>
+                            </button>
+
+                            <!-- Inline Confirmation Box (Replaces alert) -->
+                            <div id="formFeedback" class="hidden p-4 rounded-2xl bg-emerald-500/20 border border-emerald-400/40 text-emerald-200 text-sm flex items-start gap-3">
+                                <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5"></i>
+                                <div>
+                                    <p class="font-bold">Pesan berhasil terkirim!</p>
+                                    <p class="text-xs opacity-90 mt-0.5">Terima kasih telah menghubungi Mukhamat Dimas Satrio. Saya akan membalas dalam 1×24 jam kerja.</p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="py-8 border-t border-black/10 dark:border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono opacity-70">
+            <p>© 2026 MUKHAMAT DIMAS SATRIO — DESAIN KOMUNIKASI VISUAL. HAK CIPTA DILINDUNGI.</p>
+            <div class="flex items-center gap-6">
+                <span>DIRANCANG DENGAN PRESISI GRID</span>
+                <a href="#" class="underline hover:text-studio-vermilion dark:hover:text-studio-acid">KEMBALI KE ATAS ↑</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== MODAL STUDI KASUS PROYEK ==================== -->
+    <div id="projectModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div id="modalContainer" class="relative w-full max-w-4xl my-auto rounded-3xl bg-studio-paper dark:bg-studio-surface text-studio-black dark:text-studio-paper border border-black/15 dark:border-white/15 shadow-2xl overflow-hidden transform transition-all">
+            <!-- Modal Top Bar -->
+            <div class="flex items-center justify-between px-6 py-4 border-b border-black/10 dark:border-white/10 bg-studio-paperCard dark:bg-studio-card">
+                <div class="flex items-center gap-3">
+                    <span id="modalCategoryBadge" class="font-mono text-xs px-3 py-1 rounded-full bg-studio-vermilion text-white dark:bg-studio-acid dark:text-studio-black font-bold uppercase">
+                        Kategori
+                    </span>
+                    <span id="modalYear" class="font-mono text-xs opacity-70">2025</span>
+                </div>
+                <button id="closeModalBtn" aria-label="Tutup Studi Kasus" class="p-2.5 rounded-full hover:bg-black/10 dark:hover:bg-white/10 transition-colors">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="max-h-[82vh] overflow-y-auto p-6 sm:p-8 space-y-8">
+                <!-- Visual Preview Hero -->
+                <div class="rounded-2xl overflow-hidden border border-black/10 dark:border-white/10 aspect-video bg-studio-black">
+                    <img id="modalImage" src="" alt="Pratinjau Proyek" class="w-full h-full object-cover">
+                </div>
+
+                <!-- Title & Metadata Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+                    <div class="md:col-span-8 space-y-4">
+                        <h3 id="modalTitle" class="font-display font-extrabold text-3xl sm:text-4xl leading-tight">
+                            Judul Proyek
+                        </h3>
+                        <p id="modalDescription" class="text-base leading-relaxed opacity-85">
+                            Deskripsi lengkap studi kasus proyek.
+                        </p>
+                        <div class="pt-2">
+                            <h4 class="font-mono text-xs uppercase tracking-widest opacity-60 mb-2">Solusi & Pendekatan Visual</h4>
+                            <p id="modalChallenge" class="text-sm leading-relaxed opacity-80">
+                                Penjelasan pendekatan desain dan hasil akhir.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar Metadata -->
+                    <div class="md:col-span-4 space-y-5 p-5 rounded-2xl bg-studio-paperCard dark:bg-studio-card border border-black/10 dark:border-white/10 h-fit">
+                        <div>
+                            <span class="font-mono text-[11px] uppercase tracking-wider opacity-60 block">Klien / Konteks</span>
+                            <span id="modalClient" class="font-bold text-sm">Nama Klien</span>
+                        </div>
+                        <div>
+                            <span class="font-mono text-[11px] uppercase tracking-wider opacity-60 block">Peran</span>
+                            <span id="modalRole" class="font-bold text-sm">Lead Visual Designer</span>
+                        </div>
+                        <div>
+                            <span class="font-mono text-[11px] uppercase tracking-wider opacity-60 block">Tahun</span>
+                            <span id="modalYearDetail" class="font-bold text-sm">2025</span>
+                        </div>
+                        <div>
+                            <span class="font-mono text-[11px] uppercase tracking-wider opacity-60 block mb-2">Tools Digunakan</span>
+                            <div id="modalTools" class="flex flex-wrap gap-1.5">
+                                <!-- Tools badges injected here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Toast Notification (For Copy Email) -->
+    <div id="toastNotification" class="fixed bottom-6 right-6 z-50 translate-y-24 opacity-0 pointer-events-none transition-all duration-300">
+        <div class="px-5 py-3.5 rounded-2xl bg-studio-black dark:bg-studio-acid text-studio-paper dark:text-studio-black font-semibold text-sm shadow-2xl flex items-center gap-2.5 border border-white/15">
+            <i data-lucide="check" class="w-4 h-4 text-studio-acid dark:text-studio-black"></i>
+            <span>Email halo@dimassatrio.design berhasil disalin!</span>
+        </div>
+    </div>
+
+    <!-- ==================== INTERACTIVE JAVASCRIPT ==================== -->
+    <script>
+        // 1. Data Studi Kasus Karya DKV Mukhamat Dimas Satrio
+        const projectsData = [
+            {
+                id: 'nirmana-gurita',
+                title: 'Nirmana Titik: Gurita',
+                category: 'nirmana',
+                categoryLabel: 'Nirmana & Dasar Desain',
+                year: '2022',
+                client: 'Tugas Studio Nirmana — DKV',
+                role: 'Illustrator & Perancang Nirmana',
+                tools: ['Drawing Pen 0.1', 'Drawing Pen 0.5', 'Kertas HVS A3'],
+                image: 'nirmana-gurita.jpeg',
+                fallback: 'https://placehold.co/1000x700/1C1C20/CCFF00?text=NIRMANA+TITIK+GURITA',
+                summary: 'Studi nirmana titik (dot stippling) empat panel yang menerjemahkan anatomi gurita menjadi permainan rapat-renggang titik, membentuk volume, tekstur hisap, dan kedalaman ruang di atas kertas putih.',
+                challenge: 'Tantangan utamanya mengendalikan kepadatan titik sebagai satu-satunya alat gelap-terang: area gelap dibangun dari tumpukan titik rapat, sementara cahaya dibiarkan sebagai ruang kosong kertas. Komposisi dijaga agar keempat panel terbaca sebagai satu rangkaian ritmis, bukan empat gambar terpisah.'
+            },
+            {
+                id: 'studi-bola',
+                title: 'Studi Gelap-Terang: Tiga Bola',
+                category: 'nirmana',
+                categoryLabel: 'Nirmana & Dasar Desain',
+                year: '2022',
+                client: 'Tugas Menggambar Bentuk — DKV',
+                role: 'Illustrator',
+                tools: ['Pensil 2B', 'Pensil 4B', 'Pensil 6B'],
+                image: 'bola.jpeg',
+                fallback: 'https://placehold.co/1000x700/1C1C20/FF4500?text=STUDI+GELAP+TERANG+BOLA',
+                summary: 'Latihan rendering bentuk dasar berupa tiga bola dengan arah cahaya berbeda, mengeksplorasi gradasi pensil untuk memunculkan volume, highlight, bayangan inti, dan bayangan jatuh di atas bidang datar.',
+                challenge: 'Membedakan tiga sumber cahaya pada objek identik tanpa membuat gradasi terlihat kotor: setiap bola memakai rentang nilai (value) berbeda, dari kontras lembut hingga gelap pekat, sekaligus menjaga konsistensi arah bayangan jatuh agar bidang tetap terasa satu ruang.'
+            },
+            {
+                id: 'ink-manga',
+                title: 'Ink Study: Duel Karakter Manga',
+                category: 'ilustrasi',
+                categoryLabel: 'Ilustrasi',
+                year: '2023',
+                client: 'Eksplorasi Pribadi — Studi Teknik Tinta',
+                role: 'Illustrator',
+                tools: ['Drawing Pen 0.1', 'Drawing Pen 0.5', 'Drawing Pen 0.8'],
+                image: 'gambar-anime.jpeg',
+                fallback: 'https://placehold.co/1000x700/1C1C20/CCFF00?text=INK+STUDY+KARAKTER+MANGA',
+                summary: 'Ilustrasi tinta hitam-putih di atas kertas grid yang menampilkan dua karakter manga dalam komposisi duel, dibangun dari garis kontur tegas, cross-hatching, dan blok hitam solid.',
+                challenge: 'Menjaga keterbacaan dua figur yang saling tumpang tindih hanya dengan hitam dan putih: kedalaman dipisahkan lewat kepadatan hatch, sementara fokus utama diarahkan ke tatapan karakter melalui kontras area gelap di sekeliling wajah.'
+            },
+            {
+                id: 'karakter-nene',
+                title: 'Nene — Desain Karakter Siswa',
+                category: 'ilustrasi',
+                categoryLabel: 'Ilustrasi',
+                year: '2024',
+                client: 'Proyek Desain Karakter Pribadi',
+                role: 'Character Designer & Digital Illustrator',
+                tools: ['Digital Painting', 'Adobe Photoshop'],
+                image: 'karakter-nene.png',
+                fallback: 'https://placehold.co/1000x700/1C1C20/FF4500?text=KARAKTER+NENE',
+                summary: 'Desain karakter bergaya anime dengan kostum seragam sekolah Indonesia — dasi, emblem OSIS, dan badge nama — diselesaikan dengan pencahayaan hangat sore dari jendela kelas.',
+                challenge: 'Menyeimbangkan gaya anime yang ekspresif dengan detail kostum lokal yang akrab bagi audiens Indonesia, sekaligus mengunci konsistensi proporsi dan palet warna agar karakter siap dikembangkan ke pose serta ekspresi lain.'
+            },
+            {
+                id: 'culling-game',
+                title: 'Poster Fan-Art: The Culling Game',
+                category: 'poster',
+                categoryLabel: 'Poster & Editorial',
+                year: '2024',
+                client: 'Proyek Poster Pribadi',
+                role: 'Graphic Designer & Ilustrator',
+                tools: ['Adobe Photoshop', 'Adobe Illustrator'],
+                image: 'culling-game.jpg',
+                fallback: 'https://placehold.co/1000x700/1C1C20/CCFF00?text=POSTER+THE+CULLING+GAME',
+                summary: 'Poster empat panel vertikal yang membingkai empat karakter Jujutsu Kaisen dengan latar warna berbeda, disatukan oleh logotype neon dan gradasi gelap di bagian bawah komposisi.',
+                challenge: 'Menyatukan empat ilustrasi berwarna berbeda ke dalam satu komposisi tanpa terasa bertabrakan: tiap panel diberi bidang warna solid sebagai penanda karakter, lalu logotype putih bercahaya diletakkan di tengah sebagai pengikat hierarki visual.'
+            },
+            {
+                id: 'zombie-3d',
+                title: 'Karakter 3D: Zombie Turnaround',
+                category: '3d',
+                categoryLabel: '3D & Digital',
+                year: '2025',
+                client: 'Proyek Modeling 3D Pribadi',
+                role: '3D Artist',
+                tools: ['Blender 3D'],
+                image: '3d-zombie.png',
+                fallback: 'https://placehold.co/1000x700/1C1C20/FF4500?text=KARAKTER+3D+ZOMBIE',
+                summary: 'Model karakter 3D bergaya kartun dengan tiga sudut pandang (depan, samping, belakang): zombie bergoggle dengan gunting menancap di kepala, golok, dan bola rantai.',
+                challenge: 'Menjaga siluet karakter tetap terbaca dari segala arah meski membawa banyak properti; proporsi chibi dengan kepala besar dipilih agar detail wajah dan aksesori tetap menonjol, sementara palet ungu-hijau memperkuat kesan monster yang playful alih-alih menyeramkan.'
+            }
+        ];
+
+        // 2. Render Kartu Proyek & Filter Interaktif
+        const projectsGrid = document.getElementById('projectsGrid');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+
+        function renderProjects(filter = 'all') {
+            const filtered = filter === 'all' 
+                ? projectsData 
+                : projectsData.filter(item => item.category === filter);
+
+            projectsGrid.innerHTML = filtered.map((project, index) => `
+                <article 
+                    onclick="openProjectModal('${project.id}')"
+                    class="group cursor-pointer rounded-3xl bg-studio-paperCard/60 dark:bg-studio-surface border border-black/10 dark:border-white/10 overflow-hidden flex flex-col justify-between hover:border-studio-vermilion dark:hover:border-studio-acid transition-all duration-300 hover:-translate-y-1.5 shadow-sm hover:shadow-xl"
+                >
+                    <div>
+                        <!-- Thumbnail Container -->
+                        <div class="relative aspect-[4/3] overflow-hidden bg-studio-black">
+                            <img 
+                                src="${project.image}" 
+                                onerror="this.onerror=null;this.src='${project.fallback}';"
+                                alt="${project.title}" 
+                                class="project-card-img w-full h-full object-cover"
+                            >
+                            <div class="absolute top-4 left-4 right-4 flex items-center justify-between">
+                                <span class="px-3 py-1 rounded-full text-[11px] font-mono font-bold uppercase tracking-wider bg-studio-black/85 text-white backdrop-blur-md">
+                                    ${project.categoryLabel}
+                                </span>
+                                <span class="w-9 h-9 rounded-full bg-studio-acid text-studio-black flex items-center justify-center opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                                    <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Card Text Content -->
+                        <div class="p-6">
+                            <div class="flex items-center justify-between font-mono text-xs opacity-60 mb-2">
+                                <span>0${index + 1} / ${project.year}</span>
+                                <span>STUDI KASUS</span>
+                            </div>
+                            <h3 class="font-display font-bold text-xl leading-snug mb-2.5 group-hover:text-studio-vermilion dark:group-hover:text-studio-acid transition-colors">
+                                ${project.title}
+                            </h3>
+                            <p class="text-sm opacity-75 line-clamp-2 leading-relaxed">
+                                ${project.summary}
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Tools Footer -->
+                    <div class="px-6 pb-6 pt-2 flex flex-wrap gap-1.5">
+                        ${project.tools.map(tool => `
+                            <span class="px-2.5 py-1 rounded-lg text-[11px] font-mono bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10">
+                                ${tool}
+                            </span>
+                        `).join('')}
+                    </div>
+                </article>
+            `).join('');
+
+            // Re-initialize Lucide icons for newly rendered elements
+            lucide.createIcons();
+        }
+
+        // Filter Click Handlers
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Reset active styles
+                filterButtons.forEach(b => {
+                    b.classList.remove('bg-studio-black', 'text-studio-paper', 'dark:bg-studio-acid', 'dark:text-studio-black', 'border-studio-black', 'dark:border-studio-acid');
+                    b.classList.add('border-black/15', 'dark:border-white/15');
+                });
+                // Set active style
+                btn.classList.remove('border-black/15', 'dark:border-white/15');
+                btn.classList.add('bg-studio-black', 'text-studio-paper', 'dark:bg-studio-acid', 'dark:text-studio-black', 'border-studio-black', 'dark:border-studio-acid');
+
+                renderProjects(btn.dataset.filter);
+            });
+        });
+
+        // 3. Modal Detail Studi Kasus
+        const projectModal = document.getElementById('projectModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+
+        function openProjectModal(projectId) {
+            const project = projectsData.find(p => p.id === projectId);
+            if (!project) return;
+
+            document.getElementById('modalCategoryBadge').textContent = project.categoryLabel;
+            document.getElementById('modalYear').textContent = project.year;
+            document.getElementById('modalTitle').textContent = project.title;
+            document.getElementById('modalDescription').textContent = project.summary;
+            document.getElementById('modalChallenge').textContent = project.challenge;
+            document.getElementById('modalClient').textContent = project.client;
+            document.getElementById('modalRole').textContent = project.role;
+            document.getElementById('modalYearDetail').textContent = project.year;
+
+            const modalImg = document.getElementById('modalImage');
+            modalImg.src = project.image;
+            modalImg.onerror = function() {
+                this.onerror = null;
+                this.src = project.fallback;
+            };
+
+            document.getElementById('modalTools').innerHTML = project.tools.map(tool => `
+                <span class="px-3 py-1 rounded-lg text-xs font-mono bg-black/10 dark:bg-white/10 font-medium">
+                    ${tool}
+                </span>
+            `).join('');
+
+            projectModal.classList.remove('hidden');
+            projectModal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProjectModal() {
+            projectModal.classList.add('hidden');
+            projectModal.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+
+        closeModalBtn.addEventListener('click', closeProjectModal);
+        projectModal.addEventListener('click', (e) => {
+            if (e.target === projectModal) closeProjectModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !projectModal.classList.contains('hidden')) {
+                closeProjectModal();
+            }
+        });
+
+        // 4. Salin Email Cepat (Menggunakan execCommand agar kompatibel di iFrame)
+        const copyEmailBtn = document.getElementById('copyEmailBtn');
+        const copyBtnLabel = document.getElementById('copyBtnLabel');
+        const toastNotification = document.getElementById('toastNotification');
+
+        copyEmailBtn.addEventListener('click', () => {
+            const email = 'halo@dimassatrio.design';
+            const tempInput = document.createElement('textarea');
+            tempInput.value = email;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            try {
+                document.execCommand('copy');
+                copyBtnLabel.textContent = 'Tersalin!';
+                toastNotification.classList.remove('translate-y-24', 'opacity-0');
+                
+                setTimeout(() => {
+                    copyBtnLabel.textContent = 'Salin Email';
+                    toastNotification.classList.add('translate-y-24', 'opacity-0');
+                }, 2600);
+            } catch (err) {
+                console.error('Gagal menyalin email:', err);
+            }
+            document.body.removeChild(tempInput);
+        });
+
+        // 5. Formulir Kontak Interaktif
+        const contactForm = document.getElementById('contactForm');
+        const formFeedback = document.getElementById('formFeedback');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            formFeedback.classList.remove('hidden');
+            contactForm.reset();
+            setTimeout(() => {
+                formFeedback.classList.add('hidden');
+            }, 6000);
+        });
+
+        // 6. Dark / Light Theme Toggle & Mobile Menu
+        const themeToggle = document.getElementById('themeToggle');
+        const htmlEl = document.documentElement;
+        
+        // Default ke Dark Mode studio editorial yang kontras tinggi
+        htmlEl.classList.add('dark');
+
+        themeToggle.addEventListener('click', () => {
+            htmlEl.classList.toggle('dark');
+        });
+
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Initial Render on Load
+        window.addEventListener('DOMContentLoaded', () => {
+            renderProjects('all');
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
